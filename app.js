@@ -11,7 +11,6 @@ app.get('/', function(req, res) {
 	var client  = req.query.c || '000001';
 	var profile = req.query.p || '1';
 	var here    = req.get('host');
-	console.log(here);
 	var baseUrl, url, secure_url;
 	switch (env) {
 		case 'development':
