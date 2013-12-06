@@ -31,7 +31,7 @@ app.get('/', function(req, res) {
 		secure_url: secure_url,
 		client:     ('000000'+client).slice(-6),
 		profile:    profile
-	}
+	};
 	res.render('index', params);
 });
 
