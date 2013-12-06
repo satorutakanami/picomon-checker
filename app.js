@@ -25,8 +25,8 @@ app.get('/', function(req, res) {
 			baseUrl = 'battamon.net';
 			break;
 	}
-	secure_url = 'https://' + baseUrl + (port ? ':' + (port + 1) : '');
-	url        = 'http://' + baseUrl + (port ? ':' + port : '');
+	secure_url = 'https://' + baseUrl + ((port == 'development') ? ':' + (port + 1) : '');
+	url        = 'http://' + baseUrl + ((port == 'development') ? ':' + port : '');
 	var params = {
 		url:        url,
 		secure_url: secure_url,
