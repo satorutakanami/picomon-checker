@@ -4,7 +4,7 @@
 <title>picomon_checker</title>
 </head>
 <body>
-<h1 style="bottom:10px; right:10px; position:fixed;">Hello Picomon!</h1>
+<h1 style="bottom:0px; right:10px; position:fixed;">Hello Picomon!</h1>
 <div id="container" style="top:10px; left:10px; position:fixed;">
 	<form method="get">
 	<select name="env" id="env">
@@ -17,7 +17,10 @@
 	-<input type="text" name="p" placeholder="profile" value="<%= query.profile %>" style="width:2em;"><br>
 	<input type="submit" value="let's pico" style="width:">
 	</form>
+	<br>
+	<!--<button id="clearLocalStorageButton">Clear LocalStorage of <%= here %></button>-->
 </div>
+
 
 <script type="text/javascript">
 var _pcmnq = _pcmnq || [];
@@ -31,6 +34,9 @@ var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(pc,s)
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script>
 $(function() {
+	$('button#clearLocalStorageButton').on('click', function () {
+		window.localStorage.clear();
+	}):
 	$('select#env').on('change', function () {
 		if($(this).val() === 'development') $('input#port').removeAttr('disabled');
 		else $('input#port').attr('disabled', 'disabled');
