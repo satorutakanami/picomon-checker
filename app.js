@@ -32,7 +32,7 @@ app.get('/', function(req, res) {
 		client:     ('000000'+client).slice(-6),
 		profile:    profile
 	};
-	res.render('index', params);
+	res.render('./index.ejs', params);
 });
 
 var port = process.env.PORT || 5000;

@@ -7,10 +7,10 @@
 <h1>Hello Picomon!</h1>
 <script type="text/javascript">
 var _pcmnq = _pcmnq || [];
-_pcmnq.push(['account', 'PA-<%- client >-<%- profile >']);
+_pcmnq.push(['account', 'PA-<%- client %>-<%- profile %>']);
 (function(){
 var pc=document.createElement('script');pc.type='text/javascript';pc.async=true;
-pc.src=('https:' == document.location.protocol?'<% secure_url >':'<% url >')+'/loader.js';
+pc.src=('https:' == document.location.protocol?'<%- secure_url %>':'<%- url %>')+'/loader.js';
 var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(pc,s);
 })();
 </script>
