@@ -7,7 +7,7 @@ app.set('view engine', 'ejs');
 
 app.get('/', function(req, res) {
 	var env     = req.query.env || 'development';
-	var port    = req.query.port || '3010';
+	var port    = +req.query.port || 3010;
 	var client  = req.query.c || '000001';
 	var profile = req.query.p || '1';
 	var baseUrl, url, secure_url;

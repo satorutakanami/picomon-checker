@@ -4,22 +4,38 @@
 <title>picomon_checker</title>
 </head>
 <body>
-<h1>Hello Picomon!</h1>
-<form method="get">
-<input type="text" name="env" placeholder="environment" value="<%- query.env %>">
-<input type="text" name="port" placeholder="port" value="<%- query.port %>">
-<input type="text" name="c" placeholder="client" value="<%- query.client %>">
-<input type="text" name="p" placeholder="profile" value="<%- query.profile %>">
-<input type="submit" value="check">
-</form>
+<h1 style="bottom:10px; right:10px; position:fixed;">Hello Picomon!</h1>
+<div id="container" style="top:10px; left:10px; position:fixed;">
+	<form method="get">
+	<select name="env" id="env">
+		<option value="production" <%= (query.env === 'production') ? 'selected' : '' %>>production</option>
+		<option value="staging" <%= (query.env === 'staging') ? 'selected' : '' %>>staging</option>
+		<option value="development" <%= (query.env === 'development') ? 'selected' : '' %>>development</option>
+	</select>
+	<input type="text" name="port" placeholder="port" value="<%= query.port %>" id="port" style="width:4em;"><br>
+	PA-<input type="text" name="c" placeholder="client" value="<%= query.client %>" style="width:4em;">
+	-<input type="text" name="p" placeholder="profile" value="<%= query.profile %>" style="width:2em;"><br>
+	<input type="submit" value="let's pico" style="width:">
+	</form>
+</div>
+
 <script type="text/javascript">
 var _pcmnq = _pcmnq || [];
-_pcmnq.push(['account', 'PA-<%- client %>-<%- profile %>']);
+_pcmnq.push(['account', 'PA-<%= client %>-<%= profile %>']);
 (function(){
 var pc=document.createElement('script');pc.type='text/javascript';pc.async=true;
 pc.src=('https:' == document.location.protocol?'<%- secure_url %>':'<%- url %>')+'/loader.js';
 var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(pc,s);
 })();
+</script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script>
+$(function() {
+	$('select#env').on('change', function () {
+		if($(this).val() === 'development') $('input#port').removeAttr('disabled');
+		else $('input#port').attr('disabled', 'disabled');
+	});
+});
 </script>
 </body>
 </html>
