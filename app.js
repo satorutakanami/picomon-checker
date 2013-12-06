@@ -3,36 +3,37 @@ var logfmt = require("logfmt");
 var app = express();
 
 app.use(logfmt.requestLogger());
+app.set('view engine', 'ejs');
 
 app.get('/', function(req, res) {
-	var env     = req.query.env;
-	var port    = req.query.port;
-	var client  = req.query.c;
-	var profile = req.query.p;
-	var url, secure_url;
+	var env     = req.query.env || 'development';
+	var port    = req.query.port || '3010';
+	var client  = req.query.c || '000001';
+	var profile = req.query.p || '1';
+	var baseUrl, url, secure_url;
 	switch (env) {
 		case 'development':
-			url = 'battamon.net';
+			baseUrl = 'battamon.net';
 			break;
 		case 'staging':
-			url = 'pacchimon.net';
+			baseUrl = 'pacchimon.net';
 			break;
 		case 'production':
-			url = 'picomon.jp';
+			baseUrl = 'picomon.jp';
 			break;
 		default:
-			url = 'battamon.net';
+			baseUrl = 'battamon.net';
 			break;
 	}
-	url += (port) ? ':' + port : '';
-	secure_url = url + (port) ? ':' + (port + 1) : '';
+	secure_url = 'https://' + baseUrl + (port ? ':' + (port + 1) : '');
+	url        = 'http://' + baseUrl + (port ? ':' + port : '');
 	var params = {
 		url:        url,
 		secure_url: secure_url,
 		client:     ('000000'+client).slice(-6),
 		profile:    profile
 	};
-	res.render('./index.ejs', params);
+	res.render(__dirname + '/index', params);
 });
 
 var port = process.env.PORT || 5000;
