@@ -6,27 +6,31 @@ app.use(logfmt.requestLogger());
 app.set('view engine', 'ejs');
 
 app.get('/', function(req, res) {
-	var env     = req.query.env || 'development';
-	var port    = +req.query.port || 3010;
+	var env     = req.query.env || 'production';
+	var port    = req.query.port;
 	var client  = req.query.c || '000001';
 	var profile = req.query.p || '1';
 	var baseUrl, url, secure_url;
 	switch (env) {
 		case 'development':
 			baseUrl = 'battamon.net';
+			port = port || '3010';
 			break;
 		case 'staging':
 			baseUrl = 'pacchimon.net';
+			port = '';
 			break;
 		case 'production':
 			baseUrl = 'picomon.jp';
+			port = '';
 			break;
 		default:
 			baseUrl = 'battamon.net';
+			port = port || '3010';
 			break;
 	}
-	secure_url = 'https://' + baseUrl + ((env == 'development') ? ':' + (port + 1) : '');
-	url        = 'http://' + baseUrl + ((env == 'development') ? ':' + port : '');
+	secure_url = 'https://' + baseUrl + ((env == 'development') ? ':' + (+port + 1) : '');
+	url        = 'http://' + baseUrl + ((env == 'development') ? ':' + (+port) : '');
 	var params = {
 		query:      {
 			env:     env,
