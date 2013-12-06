@@ -5,6 +5,13 @@
 </head>
 <body>
 <h1>Hello Picomon!</h1>
+<form method="get">
+<input type="text" name="env" placeholder="environment" value="<%- query.env %>">
+<input type="text" name="port" placeholder="port" value="<%- query.port %>">
+<input type="text" name="c" placeholder="client" value="<%- query.client %>">
+<input type="text" name="p" placeholder="profile" value="<%- query.profile %>">
+<input type="submit" value="check">
+</form>
 <script type="text/javascript">
 var _pcmnq = _pcmnq || [];
 _pcmnq.push(['account', 'PA-<%- client %>-<%- profile %>']);

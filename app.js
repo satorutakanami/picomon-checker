@@ -25,9 +25,15 @@ app.get('/', function(req, res) {
 			baseUrl = 'battamon.net';
 			break;
 	}
-	secure_url = 'https://' + baseUrl + ((port == 'development') ? ':' + (port + 1) : '');
-	url        = 'http://' + baseUrl + ((port == 'development') ? ':' + port : '');
+	secure_url = 'https://' + baseUrl + ((env == 'development') ? ':' + (port + 1) : '');
+	url        = 'http://' + baseUrl + ((env == 'development') ? ':' + port : '');
 	var params = {
+		query:      {
+			env:     env,
+			port:    port,
+			client:  client,
+			profile: profile
+		},
 		url:        url,
 		secure_url: secure_url,
 		client:     ('000000'+client).slice(-6),
