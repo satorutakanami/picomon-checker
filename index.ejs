@@ -14,13 +14,14 @@
 		</select>
 		<input type="text" name="port" placeholder="port" value="<%= query.port %>" id="port" style="width:4em;"><br>
 		PA-<input type="text" name="c" placeholder="client" value="<%= query.client %>" style="width:4em;">
-		-<input type="text" name="p" placeholder="profile" value="<%= query.profile %>" style="width:2em;"><br>
+		-<input type="number" min="1" step="1" name="p" placeholder="profile" value="<%= query.profile %>" style="width:2em;"><br>
 		/<input type="text" id="route" placeholder="route" value="<%= route.replace(/^\//, '') %>" style="width:10em;"><br>
 		<input type="submit" id="submitParam" value="let's pico" style="width:">
 	</form>
 	<hr>
-	<!--<button id="clearLocalStorageButton">Clear LocalStorage of <%= here %></button>-->
-	<a href="<%- url %>">http</a><br><a href="<%- secure_url %>">https</a><br><a href="<%- secure_url.split('://').join('://admin.') %>">admin</a>
+	<a href="<%- url %>">http</a> / <a href="<%- secure_url %>">https</a> / <a href="<%- secure_url.split('://').join('://admin.') %>">admin</a><br>
+	<button class="clearLocalStorageButton" data-origin="<%= protocol + here %>">Clear LocalStorage of <%= protocol + here %></button><br>
+	<button class="clearLocalStorageButton" data-origin="<%= secure_url %>" disabled>Clear LocalStorage of <%= secure_url %></button>
 </div>
 
 
@@ -44,6 +45,11 @@ $(function() {
 	$('input#submitParam').on('click', function () {
 		$('form#param').attr('action', '/' + $('input#route').val());
 	});
+	$('button.clearLocalStorageButton').on('click', function () {
+		if ($(this).data('origin') === '<%= protocol + here %>') window.localStorage.clear();
+		else $('iframe#picomon_hidden_frame')[0].contentWindow.postMessage('{"command":"erase","arg":"__pcmn_agreement:PA-000035","callback":""}', $(this).data('origin'));
+	});
+
 });
 </script>
 </body>

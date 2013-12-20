@@ -12,6 +12,7 @@ app.get('/*', function(req, res) {
 	var profile = req.query.p || '1';
 	var route   = require('url').parse(req.url).pathname;
 	var here    = req.get('host');
+	var isHttps = req.connection.encrypted ? true : false;
 	var baseUrl, url, secure_url;
 	switch (env) {
 		case 'development':
@@ -45,6 +46,7 @@ app.get('/*', function(req, res) {
 		client:     ('000000'+client).slice(-6),
 		profile:    profile,
 		route:      route,
+		protocol:   isHttps ? 'https://' : 'http://',
 		here:       here
 	};
 	res.render(__dirname + '/index', params);
