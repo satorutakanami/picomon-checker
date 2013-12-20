@@ -15,7 +15,7 @@
 		<input type="text" name="port" placeholder="port" value="<%= query.port %>" id="port" style="width:4em;"><br>
 		PA-<input type="text" name="c" placeholder="client" value="<%= query.client %>" style="width:4em;">
 		-<input type="text" name="p" placeholder="profile" value="<%= query.profile %>" style="width:2em;"><br>
-		/<input type="text" id="route" name="route" placeholder="route" value="<%= route %>" style="width:10em;"><br>
+		/<input type="text" id="route" placeholder="route" value="<%= route.replace(/^\//, '') %>" style="width:10em;"><br>
 		<input type="submit" id="submitParam" value="let's pico" style="width:">
 	</form>
 	<hr>

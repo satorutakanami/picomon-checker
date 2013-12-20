@@ -10,7 +10,7 @@ app.get('/*', function(req, res) {
 	var port    = req.query.port;
 	var client  = req.query.c || '000001';
 	var profile = req.query.p || '1';
-	var route   = require('url').parse(req.url).pathname.replace(/^\//, '');
+	var route   = require('url').parse(req.url).pathname;
 	var here    = req.get('host');
 	var baseUrl, url, secure_url;
 	switch (env) {
