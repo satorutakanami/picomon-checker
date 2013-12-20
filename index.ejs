@@ -16,6 +16,7 @@
 		PA-<input type="text" name="c" placeholder="client" value="<%= query.client %>" style="width:4em;">
 		-<input type="number" min="1" max="" step="1" name="p" placeholder="profile" value="<%= query.profile %>" style="width:3em;"><br>
 		/<input type="text" id="route" placeholder="route" value="<%= route.replace(/^\//, '') %>" style="width:13em;"><br>
+		<input type="checkbox" id="isPost" <%= (is_post) ? 'checked' : '' %>>POST
 		<input type="submit" id="submitParam" value="let's pico" style="width:">
 	</form>
 	<hr>
@@ -44,6 +45,7 @@ $(function() {
 	});
 	$('select#env').trigger('change');
 	$('input#submitParam').on('click', function () {
+		if ($('input#isPost').prop('checked')) $('form#param').attr('method', 'post');
 		$('form#param').attr('action', '/' + $('input#route').val());
 	});
 	$('button.clearLocalStorageButton').on('click', function () {
