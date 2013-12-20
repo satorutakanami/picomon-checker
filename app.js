@@ -10,6 +10,7 @@ app.get('/*', function(req, res) {
 	var port    = req.query.port;
 	var client  = req.query.c || '000001';
 	var profile = req.query.p || '1';
+	var route   = req.url.split('?')[0].replace(/^\//, '');
 	var here    = req.get('host');
 	var baseUrl, url, secure_url;
 	switch (env) {
@@ -43,6 +44,7 @@ app.get('/*', function(req, res) {
 		secure_url: secure_url,
 		client:     ('000000'+client).slice(-6),
 		profile:    profile,
+		route:      route,
 		here:       here
 	};
 	res.render(__dirname + '/index', params);

@@ -6,20 +6,21 @@
 <body>
 <h1 style="bottom:0px; right:10px; position:fixed;">Hello Picomon!</h1>
 <div id="container" style="top:10px; left:10px; position:fixed;">
-	<form method="get">
-	<select name="env" id="env">
-		<option value="production" <%= (query.env === 'production') ? 'selected' : '' %>>production</option>
-		<option value="staging" <%= (query.env === 'staging') ? 'selected' : '' %>>staging</option>
-		<option value="development" <%= (query.env === 'development') ? 'selected' : '' %>>development</option>
-	</select>
-	<input type="text" name="port" placeholder="port" value="<%= query.port %>" id="port" style="width:4em;"><br>
-	PA-<input type="text" name="c" placeholder="client" value="<%= query.client %>" style="width:4em;">
-	-<input type="text" name="p" placeholder="profile" value="<%= query.profile %>" style="width:2em;"><br>
-	<input type="submit" value="let's pico" style="width:">
+	<form method="get" id="param">
+		<select name="env" id="env">
+			<option value="production" <%= (query.env === 'production') ? 'selected' : '' %>>production</option>
+			<option value="staging" <%= (query.env === 'staging') ? 'selected' : '' %>>staging</option>
+			<option value="development" <%= (query.env === 'development') ? 'selected' : '' %>>development</option>
+		</select>
+		<input type="text" name="port" placeholder="port" value="<%= query.port %>" id="port" style="width:4em;"><br>
+		PA-<input type="text" name="c" placeholder="client" value="<%= query.client %>" style="width:4em;">
+		-<input type="text" name="p" placeholder="profile" value="<%= query.profile %>" style="width:2em;"><br>
+		/<input type="text" id="route" name="route" placeholder="route" value="<%= route %>" style="width:10em;"><br>
+		<input type="submit" id="submitParam" value="let's pico" style="width:">
 	</form>
-	<br>
+	<hr>
 	<!--<button id="clearLocalStorageButton">Clear LocalStorage of <%= here %></button>-->
-	<a href="<%- url %>">http</a><a href="<%- secure_url %>">https</a><a href="<%- secure_url.split('://').join('://admin.') %>">admin</a>
+	<a href="<%- url %>">http</a><br><a href="<%- secure_url %>">https</a><br><a href="<%- secure_url.split('://').join('://admin.') %>">admin</a>
 </div>
 
 
@@ -40,6 +41,9 @@ $(function() {
 		else $('input#port').attr('disabled', 'disabled');
 	});
 	$('select#env').trigger('change');
+	$('input#submitParam').on('click', function () {
+		$('form#param').attr('action', $('input#route').val());
+	});
 });
 </script>
 </body>
