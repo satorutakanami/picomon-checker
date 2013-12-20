@@ -5,7 +5,7 @@ var app = express();
 app.use(logfmt.requestLogger());
 app.set('view engine', 'ejs');
 
-app.get('/', function(req, res) {
+app.get('/*', function(req, res) {
 	var env     = req.query.env || 'production';
 	var port    = req.query.port;
 	var client  = req.query.c || '000001';
