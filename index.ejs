@@ -42,7 +42,7 @@ $(function() {
 	});
 	$('select#env').trigger('change');
 	$('input#submitParam').on('click', function () {
-		$('form#param').attr('action', $('input#route').val());
+		$('form#param').attr('action', '/' + $('input#route').val());
 	});
 });
 </script>
