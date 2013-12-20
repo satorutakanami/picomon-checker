@@ -20,7 +20,7 @@
 		<input type="submit" id="submitParam" value="let's pico" style="width:">
 	</form>
 	<hr>
-	<a href="<%- url %>">http</a> / <a href="<%- secure_url %>">https</a> / <a href="<%- secure_url.split('://').join('://admin.') %>">admin</a><br>
+	<a href="<%- url %>" target="_blank">http</a> / <a href="<%- secure_url %>" target="_blank">https</a> / <a href="<%- secure_url.split('://').join('://admin.') %>" target="_blank">admin</a><br>
 	<button class="clearLocalStorageButton" data-origin="<%= protocol + here %>">Clear LocalStorage of <%= protocol + here %></button><br>
 	<button class="clearLocalStorageButton" data-origin="<%= secure_url %>" disabled>Clear LocalStorage of <%= secure_url %></button><br>
 	<button class="resetAgreementButton" data-origin="<%= secure_url %>" disabled>Reset Agreement of PA-<%= client %></button>
