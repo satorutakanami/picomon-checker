@@ -12,16 +12,17 @@
 			<option value="staging" <%= (query.env === 'staging') ? 'selected' : '' %>>staging</option>
 			<option value="development" <%= (query.env === 'development') ? 'selected' : '' %>>development</option>
 		</select>
-		<input type="text" name="port" placeholder="port" value="<%= query.port %>" id="port" style="width:4em;"><br>
+		<input type="text" name="port" placeholder="httpPort" value="<%= query.port %>" id="port" style="width:4em;"><br>
 		PA-<input type="text" name="c" placeholder="client" value="<%= query.client %>" style="width:4em;">
-		-<input type="number" min="1" step="1" name="p" placeholder="profile" value="<%= query.profile %>" style="width:2em;"><br>
-		/<input type="text" id="route" placeholder="route" value="<%= route.replace(/^\//, '') %>" style="width:10em;"><br>
+		-<input type="number" min="1" max="" step="1" name="p" placeholder="profile" value="<%= query.profile %>" style="width:3em;"><br>
+		/<input type="text" id="route" placeholder="route" value="<%= route.replace(/^\//, '') %>" style="width:13em;"><br>
 		<input type="submit" id="submitParam" value="let's pico" style="width:">
 	</form>
 	<hr>
 	<a href="<%- url %>">http</a> / <a href="<%- secure_url %>">https</a> / <a href="<%- secure_url.split('://').join('://admin.') %>">admin</a><br>
 	<button class="clearLocalStorageButton" data-origin="<%= protocol + here %>">Clear LocalStorage of <%= protocol + here %></button><br>
-	<button class="clearLocalStorageButton" data-origin="<%= secure_url %>" disabled>Clear LocalStorage of <%= secure_url %></button>
+	<button class="clearLocalStorageButton" data-origin="<%= secure_url %>" disabled>Clear LocalStorage of <%= secure_url %></button><br>
+	<button class="resetAgreementButton" data-origin="<%= secure_url %>" disabled>Reset Agreement of PA-<%= client %></button>
 </div>
 
 
@@ -46,10 +47,15 @@ $(function() {
 		$('form#param').attr('action', '/' + $('input#route').val());
 	});
 	$('button.clearLocalStorageButton').on('click', function () {
+		if (!confirm('clear all ok?')) return;
 		if ($(this).data('origin') === '<%= protocol + here %>') window.localStorage.clear();
-		else $('iframe#picomon_hidden_frame')[0].contentWindow.postMessage('{"command":"erase","arg":"__pcmn_agreement:PA-000035","callback":""}', $(this).data('origin'));
+		else $('iframe#picomon_hidden_frame')[0].contentWindow.postMessage('{"command":"erase","arg":"","callback":""}', $(this).data('origin'));
 	});
-
+	$('button.resetAgreementButton').on('click', function () {
+		if (!window.__picomon__.PicomonLibrary) return;
+		window.__picomon__.PicomonAnalysis.deleteStorage('isAgreed');
+		$('iframe#picomon_hidden_frame')[0].contentWindow.postMessage('{"command":"setAgreement","arg":"PA-<%= client %>","callback":""}', $(this).data('origin'));
+	});
 });
 </script>
 </body>
