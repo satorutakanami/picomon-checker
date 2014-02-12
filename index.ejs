@@ -7,6 +7,10 @@
 <h1 style="bottom:0px; right:10px; position:fixed;">Hello Picomon!</h1>
 <div id="container" style="top:10px; left:10px; position:fixed;">
 	<form method="get" id="param">
+		<select name="ver" id="ver">
+			<option value="1.0" <%= (query.ver == '1.0') ? 'selected' : '' %>>1.0</option>
+			<option value="2.0" <%= (query.ver == '2.0') ? 'selected' : '' %>>2.0</option>
+		</select>
 		<select name="env" id="env">
 			<option value="production" <%= (query.env === 'production') ? 'selected' : '' %>>production</option>
 			<option value="staging" <%= (query.env === 'staging') ? 'selected' : '' %>>staging</option>
@@ -26,7 +30,8 @@
 	<button class="resetAgreementButton" data-origin="<%= secure_url %>" disabled>Reset Agreement of PA-<%= client %></button>
 </div>
 
-
+<div id="contents"></div>
+<% if ( query.ver == '1.0' ) { %>
 <script type="text/javascript">
 var _pcmnq = _pcmnq || [];
 _pcmnq.push(['account', 'PA-<%= client %>-<%= profile %>']);
@@ -36,6 +41,11 @@ pc.src=('https:' == document.location.protocol?'<%- secure_url %>':'<%- url %>')
 var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(pc,s);
 })();
 </script>
+<% } else { %>
+<script type="text/javascript">
+console.log('new!');
+</script>
+<% } %>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script>
 $(function() {
